@@ -1,5 +1,7 @@
+import Form from "./Form/Form";
+
 function Exercicio7() {
-	return <h1 className='title'>Exercicio7</h1>
+  return <Form />;
 }
 
-export default Exercicio7
+export default Exercicio7;

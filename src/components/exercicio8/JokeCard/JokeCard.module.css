@@ -1,0 +1,11 @@
+.jokeCard {
+  background-color: white;
+  border-radius: 10px;
+  max-width: 300px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
