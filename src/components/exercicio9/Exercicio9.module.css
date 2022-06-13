@@ -1,0 +1,17 @@
+.buttonWrapper {
+  max-width: 200px;
+  margin: 1rem auto;
+}
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  gap: 1rem;
+  max-width: 1200px;
+  padding: 0 20px;
+  list-style-type: none;
+}
