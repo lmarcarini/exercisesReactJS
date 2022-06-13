@@ -10,7 +10,7 @@ function Exercicio4() {
       <p>
         Button has been clicked: {count} time{count != 1 && "s"}
       </p>
-      <Button onClick={() => setCount(count + 1)}>Click Me</Button>
+      <Button onClick={() => setCount((count) => count + 1)}>Click Me</Button>
     </Container>
   );
 }
