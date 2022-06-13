@@ -1,5 +1,7 @@
+import Button from "./Button/Button";
+
 function Exercicio2() {
-	return <h1 className='title'>Exercicio2</h1>
+  return <Button />;
 }
 
-export default Exercicio2
+export default Exercicio2;

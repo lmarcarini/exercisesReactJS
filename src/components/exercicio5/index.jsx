@@ -1,5 +1,13 @@
+import Container from "./Container/Container";
+import List from "./List/List";
+
 function Exercicio5() {
-	return <h1 className='title'>Exercicio5</h1>
+  const data = ["dog", "cat", "chicken", "cow", "sheep", "horse"];
+  return (
+    <Container>
+      <List dataArray={data}></List>
+    </Container>
+  );
 }
 
-export default Exercicio5
+export default Exercicio5;
