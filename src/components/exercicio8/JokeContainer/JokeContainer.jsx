@@ -6,7 +6,7 @@ const JokeContainer = ({ jokes }) => {
   return (
     <div className={styles.jokeContainer}>
       {jokes.map((joke) => (
-        <JokeCard {...joke} />
+        <JokeCard key={joke.id} {...joke} />
       ))}
     </div>
   );
