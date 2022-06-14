@@ -4,23 +4,32 @@ import Container from "./components/Container/Container";
 import useFetch from "./hooks/useFetch";
 import styles from "./Exercicio9.module.css";
 import Card from "./components/Card/Card";
+import useInfiniteScroll from "./hooks/useInfiniteScroll";
+
+const FETCH_URL = "https://random-data-api.com/api/users/random_user?size=10";
 
 const Exercicio9 = () => {
-  const { data, loading, error, fetchData } = useFetch();
+  const { data, loading, error, fetching, fetchData, fetchMoreData } =
+    useFetch();
+  useInfiniteScroll(() => {
+    if (!fetching) fetchMoreData(FETCH_URL);
+  });
   const isFirstRef = useRef(true);
-
-  const fetchRandom = () =>
-    fetchData("https://random-data-api.com/api/users/random_user?size=10");
 
   useEffect(() => {
     if (!isFirstRef.current) return;
-    fetchRandom();
+    fetchData(FETCH_URL);
     isFirstRef.current = false;
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    fetchData(FETCH_URL);
+  };
   return (
     <>
       <div className={styles.buttonWrapper}>
-        <Button onClick={fetchRandom}>Fetch Random</Button>
+        <Button onClick={handleClick}>Fetch Random</Button>
       </div>
       <Container>
         {loading && <p>Loading...</p>}
@@ -34,6 +43,7 @@ const Exercicio9 = () => {
             ))}
           </ul>
         )}
+        {!loading && fetching && <p>Fetching...</p>}
       </Container>
     </>
   );

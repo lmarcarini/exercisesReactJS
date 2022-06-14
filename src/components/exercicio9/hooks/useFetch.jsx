@@ -3,6 +3,7 @@ import { useReducer } from "react";
 const initialState = {
   data: null,
   loading: false,
+  fetching: false,
   error: null,
 };
 
@@ -11,12 +12,27 @@ const dataReducer = (state, action) => {
     fetchDataStart: () => ({
       ...state,
       loading: true,
+      fetching: true,
       error: null,
     }),
     fetchDataSuccess: (data) => ({
       ...state,
       data,
       loading: false,
+      fetching: false,
+      error: null,
+    }),
+    addDataStart: () => ({
+      ...state,
+      loading: false,
+      fetching: true,
+      error: null,
+    }),
+    addDataSuccess: (data) => ({
+      ...state,
+      data: [...state.data, ...data],
+      loading: false,
+      fetching: false,
       error: null,
     }),
     fetchDataError: (error) => ({
@@ -44,7 +60,18 @@ const useFetch = () => {
     }
   };
 
-  return { ...state, fetchData };
+  const fetchMoreData = async (url) => {
+    dispatch({ type: "addDataStart" });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      dispatch({ type: "addDataSuccess", payload: data });
+    } catch (error) {
+      dispatch({ type: "fetchDataError", payload: error });
+    }
+  };
+
+  return { ...state, fetchData, fetchMoreData };
 };
 
 export default useFetch;
