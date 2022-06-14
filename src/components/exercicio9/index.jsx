@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Button from "./components/Button/Button";
 import Container from "./components/Container/Container";
 import useFetch from "./hooks/useFetch";
@@ -11,9 +11,8 @@ const FETCH_URL = "https://random-data-api.com/api/users/random_user?size=10";
 const Exercicio9 = () => {
   const { data, loading, error, fetching, fetchData, fetchMoreData } =
     useFetch();
-  useInfiniteScroll(() => {
-    if (!fetching) fetchMoreData(FETCH_URL);
-  });
+
+  const { onBottom, setOnBottom } = useInfiniteScroll();
   const isFirstRef = useRef(true);
 
   useEffect(() => {
@@ -21,6 +20,13 @@ const Exercicio9 = () => {
     fetchData(FETCH_URL);
     isFirstRef.current = false;
   }, []);
+
+  useEffect(() => {
+    if (onBottom && !fetching) {
+      setOnBottom(false);
+      fetchMoreData(FETCH_URL);
+    }
+  }, [onBottom, fetching]);
 
   const handleClick = (e) => {
     e.preventDefault();
